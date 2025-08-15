@@ -3,174 +3,191 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>assistIA — Asistente para Consultorios Médicos</title>
-  <meta name="description" content="Automatiza WhatsApp, agenda citas, recibe documentos y notifica emergencias. Todo con IA, seguro y fácil." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>AssistIA — Recepcionista médica por WhatsApp</title>
+  <meta name="description" content="AssistIA agenda citas, responde preguntas, gestiona emergencias y documentos médicos por WhatsApp. Integrado con Google Calendar, Sheets y Drive." />
+  <meta property="og:title" content="AssistIA — Recepcionista médica por WhatsApp" />
+  <meta property="og:description" content="Agenda, recordatorios y triage por WhatsApp. Integrado con Google Workspace." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://TU-USUARIO.github.io/TU-REPO/" /> <!-- TODO -->
+  <meta name="theme-color" content="#0ea5e9" />
+
   <style>
     :root{
-      --bg:#0b1220; --card:#111a2b; --muted:#7f8ea3; --text:#eaf0ff; --accent:#66e4c1; --accent-2:#7aa2ff;
+      --bg:#0b1020; --card:#10172a; --muted:#9fb0c7;
+      --txt:#eaf2ff; --brand:#0ea5e9; --brand-2:#22d3ee; --ok:#22c55e; --warn:#f59e0b;
+      --radius:18px;
     }
-    *{box-sizing:border-box} html,body{margin:0;padding:0}
-    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#0b1220 0%,#0c1322 100%);color:var(--text)}
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f6f9ff; --card:#ffffff; --txt:#0b1020; --muted:#4b5563; }
+      body{background:linear-gradient(180deg,#eef6ff,transparent 40%) var(--bg);}
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--txt);background:var(--bg);line-height:1.6}
+    a{color:var(--brand);text-decoration:none}
     .container{max-width:1100px;margin:0 auto;padding:24px}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
-    .logo{font-weight:700;letter-spacing:.2px}
-    .pill{padding:10px 16px;border-radius:999px;border:1px solid #26354e;background:#0f192d1c;color:var(--text);text-decoration:none}
-    .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;padding:40px 0}
-    .hero h1{font-size:42px;line-height:1.1;margin:0 0 10px}
-    .hero p{color:var(--muted);font-size:18px;margin:0 0 18px}
-    .cta{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{background:var(--accent);color:#051317;font-weight:700;border:0;border-radius:12px;padding:12px 18px;text-decoration:none}
-    .btn.secondary{background:#18243a;border:1px solid #25324a;color:#cfe0ff}
-    .card{background:var(--card);border:1px solid #1c2a43;border-radius:16px;padding:20px}
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-    .kpi{display:flex;gap:12px;align-items:center}
-    .kpi .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
-    h2{font-size:28px;margin:8px 0 14px}
-    h3{margin:8px 0 6px}
-    .muted{color:var(--muted)}
-    .section{padding:28px 0}
-    .faq details{background:#0f182b;border:1px solid #1b2942;border-radius:12px;padding:14px}
+    .nav{display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+    .logo-badge{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:white;font-weight:900}
+    .btn{display:inline-block;padding:12px 18px;border-radius:999px;font-weight:700;border:1px solid #ffffff22;background:linear-gradient(180deg,#ffffff10,#00000010);backdrop-filter: blur(8px)}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;color:white}
+    .hero{display:grid;gap:22px;padding:56px 0}
+    .hero h1{font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0}
+    .hero p{max-width:720px;color:var(--muted);margin:0}
+    .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .card{background:var(--card);border:1px solid #ffffff12;padding:18px;border-radius:var(--radius);box-shadow:0 6px 24px #00000022}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:#ffffff14;border:1px solid #ffffff22;padding:6px 10px;border-radius:999px;font-size:12px}
+    .kpis{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+    .kpi{background:var(--card);padding:14px;border-radius:14px;border:1px solid #ffffff12}
+    .kpi b{font-size:22px}
+    .section{padding:42px 0}
+    .faq details{background:var(--card);border:1px solid #ffffff12;border-radius:14px;padding:14px}
     .faq details+details{margin-top:10px}
-    footer{padding:28px 0;color:#9fb0cc}
-    .tag{display:inline-block;background:#12213a;border:1px solid #1e3353;border-radius:8px;padding:6px 10px;margin-right:8px}
-    @media (max-width:900px){.hero{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
+    footer{opacity:.8;border-top:1px solid #ffffff12;margin-top:40px}
+    .list{margin:0;padding-left:20px}
+    .tag{display:inline-block;font-size:12px;padding:4px 8px;border-radius:999px;background:#fff2;border:1px solid #ffffff22;margin:4px 6px 0 0}
   </style>
+
+  <!-- SEO JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"AssistIA",
+    "applicationCategory":"AIApplication",
+    "operatingSystem":"Web",
+    "description":"Recepcionista médica por WhatsApp que agenda, recuerda y triagea emergencias con Google Workspace.",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
+  }
+  </script>
 </head>
 <body>
-  <div class="container">
-    <nav class="nav">
-      <div class="logo">assist<span style="color:var(--accent)">IA</span></div>
-      <a class="pill" href="#contacto">Habla con nosotros</a>
+  <header class="container nav">
+    <div class="logo">
+      <div class="logo-badge">AI</div> AssistIA
+    </div>
+    <nav>
+      <a class="btn" href="#caracteristicas">Características</a>
+      <a class="btn" href="#faq">FAQ</a>
+      <a class="btn primary" href="#contacto">Probar demo</a>
     </nav>
+  </header>
 
+  <main class="container">
     <section class="hero">
+      <span class="pill">🤖 Recepcionista médica por WhatsApp</span>
+      <h1>Agenda citas, responde pacientes y **avisa emergencias** en segundos</h1>
+      <p>
+        AssistIA automatiza la recepción médica: entiende mensajes y audios, ofrece horarios libres,
+        confirma citas en Google Calendar, registra en Sheets/Drive y notifica al doctor si detecta urgencias.
+      </p>
       <div>
-        <h1>Agenda, WhatsApp y documentos&nbsp;<span style="color:var(--accent)">automatizados</span> para tu consultorio</h1>
-        <p>assistIA responde WhatsApp, propone horarios libres, confirma citas en Google Calendar, recibe estudios y alerta al médico ante emergencias. Todo en un solo flujo.</p>
-        <div class="cta">
-          <a class="btn" href="https://wa.me/5214420000000" target="_blank" rel="noopener">Probar por WhatsApp</a>
-          <a class="btn secondary" href="#faq">Ver preguntas frecuentes</a>
-        </div>
-        <div style="margin-top:16px">
-          <span class="tag">WhatsApp Business API</span>
-          <span class="tag">Google Calendar</span>
-          <span class="tag">Drive & Sheets</span>
-          <span class="tag">IA médica</span>
-        </div>
+        <a class="btn primary" href="#contacto">Quiero la demo</a>
+        <a class="btn" href="#como-funciona">Cómo funciona</a>
       </div>
-      <div class="card">
-        <div class="kpi"><span class="dot"></span><strong>+70%</strong>&nbsp;<span class="muted">de mensajes respondidos en minutos</span></div>
-        <div class="kpi"><span class="dot" style="background:var(--accent-2)"></span><strong>0</strong>&nbsp;<span class="muted">doble agenda: confirma solo horas libres</span></div>
-        <hr style="border-color:#203251;opacity:.4;margin:14px 0">
-        <p class="muted">“Desde que usamos assistIA, mis pacientes confirman más y yo me concentro en la consulta.” — Dr. Ejemplo</p>
+      <div class="kpis">
+        <div class="kpi">⏱️ <b>-70%</b><br/>tiempo en coordinación</div>
+        <div class="kpi">📅 <b>24/7</b><br/>respuesta inmediata</div>
+        <div class="kpi">🧠 <b>NLP</b><br/>texto + voz</div>
       </div>
     </section>
 
-    <section class="section">
+    <section id="caracteristicas" class="section">
+      <h2>Características clave</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Agenda inteligente</h3>
+          <p>Propone horas libres L‑V 09:00–20:00 con ≥2h de anticipación y confirma en Google Calendar.</p>
+          <span class="tag">Google Calendar</span><span class="tag">Reglas de horario</span>
+        </div>
+        <div class="card">
+          <h3>WhatsApp + Voz</h3>
+          <p>Entiende texto o notas de voz (Whisper). Pide nombre y motivo automáticamente.</p>
+          <span class="tag">Transcripción</span><span class="tag">Slot filling</span>
+        </div>
+        <div class="card">
+          <h3>Emergencias</h3>
+          <p>Detecta lenguaje crítico y envía aviso interno al doctor por WhatsApp con contexto.</p>
+          <span class="tag">Notificación interna</span>
+        </div>
+        <div class="card">
+          <h3>Documentos</h3>
+          <p>Recibe estudios/recetas, los sube a Drive y registra metadatos en Sheets.</p>
+          <span class="tag">Drive</span><span class="tag">Sheets</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="section">
       <h2>Cómo funciona</h2>
-      <div class="grid-3">
-        <div class="card">
-          <h3>1) Mensaje por WhatsApp</h3>
-          <p class="muted">El paciente saluda, pide cita o envía un estudio/nota de voz.</p>
-        </div>
-        <div class="card">
-          <h3>2) IA entiende y propone</h3>
-          <p class="muted">Detecta intención, sugiere horarios disponibles y solicita nombre/motivo si falta info.</p>
-        </div>
-        <div class="card">
-          <h3>3) Agenda y notifica</h3>
-          <p class="muted">Crea el evento en Google Calendar con nombre, motivo y teléfono; envía confirmación y, si aplica, alerta al médico.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Beneficios clave</h2>
-      <div class="grid-3">
-        <div class="card">
-          <h3>Agenda sin huecos raros</h3>
-          <p class="muted">Slots redondeados a :00 o :30. Sin choques con tu calendario.</p>
-        </div>
-        <div class="card">
-          <h3>Documentos organizados</h3>
-          <p class="muted">INE, recetas, estudios y pagos, en carpetas por paciente en Drive.</p>
-        </div>
-        <div class="card">
-          <h3>Emergencias con criterio</h3>
-          <p class="muted">Lenguaje formal o coloquial; mensaje interno al médico, sin alarmar al paciente.</p>
-        </div>
+      <div class="grid">
+        <div class="card"><b>1) Paciente escribe o manda audio</b><br/>Twilio → Webhook</div>
+        <div class="card"><b>2) IA entiende intención</b><br/>cita, información, emergencia, documento…</div>
+        <div class="card"><b>3) Consulta disponibilidad</b><br/>verifica eventos ocupados y propone opciones</div>
+        <div class="card"><b>4) Confirma y registra</b><br/>Calendar + Sheets + Drive; mensaje de confirmación</div>
       </div>
     </section>
 
     <section class="section">
       <h2>Planes</h2>
-      <div class="grid-2">
+      <div class="grid">
         <div class="card">
-          <h3>Básico</h3>
-          <p class="muted">Ideal para consultorios con agenda ligera.</p>
-          <ul>
-            <li>WhatsApp + Agenda</li>
-            <li>Drive & Sheets</li>
-            <li>Soporte por email</li>
+          <h3>Demo</h3>
+          <ul class="list">
+            <li>Sandbox de WhatsApp</li>
+            <li>Plantilla base</li>
+            <li>Hasta 9 mensajes/día</li>
           </ul>
-          <a class="btn" href="#contacto">Solicitar demo</a>
+          <p><b>$0</b></p>
         </div>
         <div class="card">
           <h3>Profesional</h3>
-          <p class="muted">Para volumen medio–alto y métricas.</p>
-          <ul>
-            <li>Todo del Básico</li>
-            <li>Reportes mensuales</li>
-            <li>Plantillas personalizadas</li>
+          <ul class="list">
+            <li>Número verificado de WhatsApp</li>
+            <li>Integración completa Workspace</li>
+            <li>Soporte y métricas</li>
           </ul>
-          <a class="btn" href="#contacto">Solicitar demo</a>
+          <p><b><!-- TODO: tu precio --></b></p>
         </div>
       </div>
     </section>
 
     <section id="faq" class="section faq">
-      <h2>FAQ</h2>
+      <h2>Preguntas frecuentes</h2>
       <details>
-        <summary>¿Necesito cambiar mi número de WhatsApp?</summary>
-        <p class="muted">No necesariamente. Podemos usar un número nuevo (Twilio) o migrar tu número actual a la API oficial. Te guiamos en ambas.</p>
+        <summary>¿Funciona con mi calendario actual?</summary>
+        <p>Sí, se integra con Google Calendar del consultorio y respeta tus eventos ocupados.</p>
       </details>
       <details>
-        <summary>¿Se integra con Google Calendar y Drive?</summary>
-        <p class="muted">Sí. Las citas se crean con nombre y motivo; los documentos se guardan por paciente.</p>
+        <summary>¿Recibe audios?</summary>
+        <p>Sí, transcribe y responde; si el audio es ininteligible, pide uno nuevo con tips.</p>
       </details>
       <details>
-        <summary>¿Cómo maneja las emergencias?</summary>
-        <p class="muted">La IA detecta lenguaje de urgencia, consuela al paciente y envía un aviso interno al médico con el mensaje original.</p>
+        <summary>¿Qué pasa en emergencias?</summary>
+        <p>Se envía un aviso interno al médico con fecha, número del paciente y mensaje original.</p>
       </details>
       <details>
-        <summary>¿Cuánto cuesta?</summary>
-        <p class="muted">Depende del volumen de mensajes. Tenemos un plan base mensual y costo variable por conversación de WhatsApp.</p>
+        <summary>Privacidad</summary>
+        <p>Los datos se almacenan en tu Google Drive/Sheets. Puedes solicitar borrado cuando quieras.</p>
       </details>
     </section>
 
-    <section id="contacto" class="section">
-      <h2>Contactar</h2>
-      <div class="grid-2">
-        <div class="card">
-          <h3>WhatsApp</h3>
-          <p class="muted">Escríbenos para una demo.</p>
-          <a class="btn" href="https://wa.me/5214420000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
-        </div>
-        <div class="card">
-          <h3>Email</h3>
-          <p class="muted">Te enviamos una propuesta en 24h.</p>
-          <a class="btn secondary" href="mailto:ventas@assistia.mx">ventas@assistia.mx</a>
-        </div>
-      </div>
+    <section id="contacto" class="section card">
+      <h2>Probar la demo</h2>
+      <p>Escríbenos y te compartimos el número de prueba.</p>
+      <p>
+        📧 <a href="assistia.demo@gmail.com">assistia.demo@gmail.com</a> <!-- TODO -->
+        <br/>🌐 <a href="https://github.com/TU-USUARIO/TU-REPO" target="_blank" rel="noopener">Repositorio en GitHub</a> <!-- TODO -->
+      </p>
+      <a class="btn primary" href="https://wa.me/+524423059351" target="_blank" rel="noopener">Abrir WhatsApp</a> <!-- TODO -->
     </section>
 
     <footer class="section">
-      <div class="muted">© <span id="y"></span> assistIA — Hecho con cariño en Qro.</div>
+      <small>© <span id="y"></span> AssistIA. Hecho con ❤️</small>
     </footer>
-  </div>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
