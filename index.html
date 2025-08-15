@@ -1,194 +1,162 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AssistIA — Recepcionista médica por WhatsApp</title>
-  <meta name="description" content="AssistIA agenda citas, responde preguntas, gestiona emergencias y documentos médicos por WhatsApp. Integrado con Google Calendar, Sheets y Drive." />
-  <meta property="og:title" content="AssistIA — Recepcionista médica por WhatsApp" />
-  <meta property="og:description" content="Agenda, recordatorios y triage por WhatsApp. Integrado con Google Workspace." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://TU-USUARIO.github.io/TU-REPO/" /> <!-- TODO -->
-  <meta name="theme-color" content="#0ea5e9" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AssistIA - Recepcionista Médica Inteligente</title>
   <style>
-    :root{
-      --bg:#0b1020; --card:#10172a; --muted:#9fb0c7;
-      --txt:#eaf2ff; --brand:#0ea5e9; --brand-2:#22d3ee; --ok:#22c55e; --warn:#f59e0b;
-      --radius:18px;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #0d1117;
+      color: #f0f6fc;
+      text-align: center;
     }
-    @media (prefers-color-scheme: light){
-      :root{ --bg:#f6f9ff; --card:#ffffff; --txt:#0b1020; --muted:#4b5563; }
-      body{background:linear-gradient(180deg,#eef6ff,transparent 40%) var(--bg);}
+    header {
+      padding: 20px;
+      background-color: #161b22;
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--txt);background:var(--bg);line-height:1.6}
-    a{color:var(--brand);text-decoration:none}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
-    .nav{display:flex;justify-content:space-between;align-items:center;gap:16px}
-    .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
-    .logo-badge{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:white;font-weight:900}
-    .btn{display:inline-block;padding:12px 18px;border-radius:999px;font-weight:700;border:1px solid #ffffff22;background:linear-gradient(180deg,#ffffff10,#00000010);backdrop-filter: blur(8px)}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));border:none;color:white}
-    .hero{display:grid;gap:22px;padding:56px 0}
-    .hero h1{font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0}
-    .hero p{max-width:720px;color:var(--muted);margin:0}
-    .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .card{background:var(--card);border:1px solid #ffffff12;padding:18px;border-radius:var(--radius);box-shadow:0 6px 24px #00000022}
-    .pill{display:inline-flex;align-items:center;gap:8px;background:#ffffff14;border:1px solid #ffffff22;padding:6px 10px;border-radius:999px;font-size:12px}
-    .kpis{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
-    .kpi{background:var(--card);padding:14px;border-radius:14px;border:1px solid #ffffff12}
-    .kpi b{font-size:22px}
-    .section{padding:42px 0}
-    .faq details{background:var(--card);border:1px solid #ffffff12;border-radius:14px;padding:14px}
-    .faq details+details{margin-top:10px}
-    footer{opacity:.8;border-top:1px solid #ffffff12;margin-top:40px}
-    .list{margin:0;padding-left:20px}
-    .tag{display:inline-block;font-size:12px;padding:4px 8px;border-radius:999px;background:#fff2;border:1px solid #ffffff22;margin:4px 6px 0 0}
+    nav a {
+      margin: 0 10px;
+      color: #58a6ff;
+      text-decoration: none;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1, h2, h3 {
+      color: #58a6ff;
+    }
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .feature {
+      background: #21262d;
+      padding: 15px;
+      border-radius: 8px;
+      min-width: 150px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #161b22;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      margin: auto;
+    }
+    input, textarea, button {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      background: #238636;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2ea043;
+    }
+    footer {
+      background: #161b22;
+      padding: 20px;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    .cta-buttons a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background: #238636;
+      color: white;
+      text-decoration: none;
+    }
+    .cta-buttons a:hover {
+      background: #2ea043;
+    }
   </style>
-
-  <!-- SEO JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"SoftwareApplication",
-    "name":"AssistIA",
-    "applicationCategory":"AIApplication",
-    "operatingSystem":"Web",
-    "description":"Recepcionista médica por WhatsApp que agenda, recuerda y triagea emergencias con Google Workspace.",
-    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
-  }
-  </script>
 </head>
 <body>
-  <header class="container nav">
-    <div class="logo">
-      <div class="logo-badge">AI</div> AssistIA
-    </div>
+
+  <header>
+    <h1>AssistIA</h1>
     <nav>
-      <a class="btn" href="#caracteristicas">Características</a>
-      <a class="btn" href="#faq">FAQ</a>
-      <a class="btn primary" href="#contacto">Probar demo</a>
+      <a href="#caracteristicas">Características</a>
+      <a href="#faq">FAQ</a>
+      <a href="#demo">Probar demo</a>
     </nav>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <span class="pill">🤖 Recepcionista médica por WhatsApp</span>
-      <h1>Agenda citas, responde pacientes y <strong>avisa emergencias</strong> en segundos
-        </h1>
-      <p>
-        AssistIA automatiza la recepción médica: entiende mensajes y audios, ofrece horarios libres,
-        confirma citas en Google Calendar, registra en Sheets/Drive y notifica al doctor si detecta urgencias.
-      </p>
-      <div>
-        <a class="btn primary" href="#contacto">Quiero la demo</a>
-        <a class="btn" href="#como-funciona">Cómo funciona</a>
-      </div>
-      <div class="kpis">
-        <div class="kpi">⏱️ <b>-70%</b><br/>tiempo en coordinación</div>
-        <div class="kpi">📅 <b>24/7</b><br/>respuesta inmediata</div>
-        <div class="kpi">🧠 <b>NLP</b><br/>texto + voz</div>
-      </div>
-    </section>
+  <section>
+    <h2>Agenda citas, responde pacientes y <strong>avisa emergencias</strong> en segundos</h2>
+    <p>AssistIA automatiza la recepción médica: entiende mensajes y audios, ofrece horarios libres, confirma citas en Google Calendar, registra en Sheets/Drive y notifica al doctor si detecta urgencias.</p>
+    <div class="cta-buttons">
+      <a href="#demo">Quiero la demo</a>
+      <a href="https://wa.me/524423059351" target="_blank">📲 WhatsApp</a>
+    </div>
+  </section>
 
-    <section id="caracteristicas" class="section">
-      <h2>Características clave</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Agenda inteligente</h3>
-          <p>Propone horas libres L‑V 09:00–20:00 con ≥2h de anticipación y confirma en Google Calendar.</p>
-          <span class="tag">Google Calendar</span><span class="tag">Reglas de horario</span>
-        </div>
-        <div class="card">
-          <h3>WhatsApp + Voz</h3>
-          <p>Entiende texto o notas de voz (Whisper). Pide nombre y motivo automáticamente.</p>
-          <span class="tag">Transcripción</span><span class="tag">Slot filling</span>
-        </div>
-        <div class="card">
-          <h3>Emergencias</h3>
-          <p>Detecta lenguaje crítico y envía aviso interno al doctor por WhatsApp con contexto.</p>
-          <span class="tag">Notificación interna</span>
-        </div>
-        <div class="card">
-          <h3>Documentos</h3>
-          <p>Recibe estudios/recetas, los sube a Drive y registra metadatos en Sheets.</p>
-          <span class="tag">Drive</span><span class="tag">Sheets</span>
-        </div>
-      </div>
-    </section>
+  <section id="caracteristicas" class="features">
+    <div class="feature">-70% tiempo en coordinación</div>
+    <div class="feature">24/7 respuesta inmediata</div>
+    <div class="feature">NLP texto + voz</div>
+  </section>
 
-    <section id="como-funciona" class="section">
-      <h2>Cómo funciona</h2>
-      <div class="grid">
-        <div class="card"><b>1) Paciente escribe o manda audio</b><br/>Twilio → Webhook</div>
-        <div class="card"><b>2) IA entiende intención</b><br/>cita, información, emergencia, documento…</div>
-        <div class="card"><b>3) Consulta disponibilidad</b><br/>verifica eventos ocupados y propone opciones</div>
-        <div class="card"><b>4) Confirma y registra</b><br/>Calendar + Sheets + Drive; mensaje de confirmación</div>
-      </div>
-    </section>
+  <section id="demo">
+    <h3>Solicita la demo</h3>
+    <form id="lead" action="https://formspree.io/f/mrbldvey" method="POST">
+      <input type="text" name="nombre" placeholder="Tu nombre" required />
+      <input type="email" name="email" placeholder="Tu email" required />
+      <textarea name="mensaje" placeholder="Cuéntanos sobre tu consultorio" required></textarea>
+      <button type="submit">Enviar</button>
+      <p id="form-msg"></p>
+    </form>
+  </section>
 
-    <section class="section">
-      <h2>Planes</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Demo</h3>
-          <ul class="list">
-            <li>Sandbox de WhatsApp</li>
-            <li>Plantilla base</li>
-            <li>Hasta 9 mensajes/día</li>
-          </ul>
-          <p><b>$0</b></p>
-        </div>
-        <div class="card">
-          <h3>Profesional</h3>
-          <ul class="list">
-            <li>Número verificado de WhatsApp</li>
-            <li>Integración completa Workspace</li>
-            <li>Soporte y métricas</li>
-          </ul>
-          <p><b><!-- TODO: tu precio --></b></p>
-        </div>
-      </div>
-    </section>
+  <section id="faq">
+    <h3>FAQ</h3>
+    <p><strong>¿Cómo funciona?</strong> Recibimos mensajes de pacientes, entendemos su intención y gestionamos citas automáticamente.</p>
+    <p><strong>¿Es seguro?</strong> Sí, toda la información se maneja con cifrado y acceso restringido.</p>
+    <p><strong>¿Puedo probarlo?</strong> Sí, solicita la demo y te contactaremos.</p>
+  </section>
 
-    <section id="faq" class="section faq">
-      <h2>Preguntas frecuentes</h2>
-      <details>
-        <summary>¿Funciona con mi calendario actual?</summary>
-        <p>Sí, se integra con Google Calendar del consultorio y respeta tus eventos ocupados.</p>
-      </details>
-      <details>
-        <summary>¿Recibe audios?</summary>
-        <p>Sí, transcribe y responde; si el audio es ininteligible, pide uno nuevo con tips.</p>
-      </details>
-      <details>
-        <summary>¿Qué pasa en emergencias?</summary>
-        <p>Se envía un aviso interno al médico con fecha, número del paciente y mensaje original.</p>
-      </details>
-      <details>
-        <summary>Privacidad</summary>
-        <p>Los datos se almacenan en tu Google Drive/Sheets. Puedes solicitar borrado cuando quieras.</p>
-      </details>
-    </section>
-
-    <section id="contacto" class="section card">
-      <h2>Probar la demo</h2>
-      <p>Escríbenos y te compartimos el número de prueba.</p>
-      <p>
-        📧 <a href="assistia.demo@gmail.com">assistia.demo@gmail.com</a> <!-- TODO -->
-        <br/>🌐 <a href="https://assistiademo-source.github.io/AssistIA/" target="_blank" rel="noopener">Repositorio en GitHub</a> <!-- TODO -->
-      </p>
-      <a class="btn primary" href="https://wa.me/+524423059351" target="_blank" rel="noopener">Abrir WhatsApp</a> <!-- TODO -->
-    </section>
-
-    <footer class="section">
-      <small>© <span id="y"></span> AssistIA. Hecho con ❤️</small>
-    </footer>
-  </main>
+  <footer>
+    <p>📧 <a href="mailto:assistia.demo@gmail.com">assistia.demo@gmail.com</a> | 📲 <a href="https://wa.me/524423059351">WhatsApp</a></p>
+    <p>&copy; 2025 AssistIA. Todos los derechos reservados.</p>
+  </footer>
 
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    const form = document.getElementById('lead');
+    const msg  = document.getElementById('form-msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = 'Enviando...';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          msg.textContent = '¡Listo! Te contactaremos pronto.';
+        } else {
+          msg.textContent = 'Ups, no pudimos enviar el formulario. Intenta de nuevo.';
+        }
+      } catch {
+        msg.textContent = 'Error de red. Intenta más tarde.';
+      }
+    });
   </script>
+
 </body>
 </html>
