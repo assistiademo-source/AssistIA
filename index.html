@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>assistIA — Asistente para Consultorios Médicos</title>
+  <meta name="description" content="Automatiza WhatsApp, agenda citas, recibe documentos y notifica emergencias. Todo con IA, seguro y fácil." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220; --card:#111a2b; --muted:#7f8ea3; --text:#eaf0ff; --accent:#66e4c1; --accent-2:#7aa2ff;
+    }
+    *{box-sizing:border-box} html,body{margin:0;padding:0}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#0b1220 0%,#0c1322 100%);color:var(--text)}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+    .logo{font-weight:700;letter-spacing:.2px}
+    .pill{padding:10px 16px;border-radius:999px;border:1px solid #26354e;background:#0f192d1c;color:var(--text);text-decoration:none}
+    .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;padding:40px 0}
+    .hero h1{font-size:42px;line-height:1.1;margin:0 0 10px}
+    .hero p{color:var(--muted);font-size:18px;margin:0 0 18px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{background:var(--accent);color:#051317;font-weight:700;border:0;border-radius:12px;padding:12px 18px;text-decoration:none}
+    .btn.secondary{background:#18243a;border:1px solid #25324a;color:#cfe0ff}
+    .card{background:var(--card);border:1px solid #1c2a43;border-radius:16px;padding:20px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .kpi{display:flex;gap:12px;align-items:center}
+    .kpi .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+    h2{font-size:28px;margin:8px 0 14px}
+    h3{margin:8px 0 6px}
+    .muted{color:var(--muted)}
+    .section{padding:28px 0}
+    .faq details{background:#0f182b;border:1px solid #1b2942;border-radius:12px;padding:14px}
+    .faq details+details{margin-top:10px}
+    footer{padding:28px 0;color:#9fb0cc}
+    .tag{display:inline-block;background:#12213a;border:1px solid #1e3353;border-radius:8px;padding:6px 10px;margin-right:8px}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <div class="logo">assist<span style="color:var(--accent)">IA</span></div>
+      <a class="pill" href="#contacto">Habla con nosotros</a>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <h1>Agenda, WhatsApp y documentos&nbsp;<span style="color:var(--accent)">automatizados</span> para tu consultorio</h1>
+        <p>assistIA responde WhatsApp, propone horarios libres, confirma citas en Google Calendar, recibe estudios y alerta al médico ante emergencias. Todo en un solo flujo.</p>
+        <div class="cta">
+          <a class="btn" href="https://wa.me/5214420000000" target="_blank" rel="noopener">Probar por WhatsApp</a>
+          <a class="btn secondary" href="#faq">Ver preguntas frecuentes</a>
+        </div>
+        <div style="margin-top:16px">
+          <span class="tag">WhatsApp Business API</span>
+          <span class="tag">Google Calendar</span>
+          <span class="tag">Drive & Sheets</span>
+          <span class="tag">IA médica</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="kpi"><span class="dot"></span><strong>+70%</strong>&nbsp;<span class="muted">de mensajes respondidos en minutos</span></div>
+        <div class="kpi"><span class="dot" style="background:var(--accent-2)"></span><strong>0</strong>&nbsp;<span class="muted">doble agenda: confirma solo horas libres</span></div>
+        <hr style="border-color:#203251;opacity:.4;margin:14px 0">
+        <p class="muted">“Desde que usamos assistIA, mis pacientes confirman más y yo me concentro en la consulta.” — Dr. Ejemplo</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Cómo funciona</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>1) Mensaje por WhatsApp</h3>
+          <p class="muted">El paciente saluda, pide cita o envía un estudio/nota de voz.</p>
+        </div>
+        <div class="card">
+          <h3>2) IA entiende y propone</h3>
+          <p class="muted">Detecta intención, sugiere horarios disponibles y solicita nombre/motivo si falta info.</p>
+        </div>
+        <div class="card">
+          <h3>3) Agenda y notifica</h3>
+          <p class="muted">Crea el evento en Google Calendar con nombre, motivo y teléfono; envía confirmación y, si aplica, alerta al médico.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Beneficios clave</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Agenda sin huecos raros</h3>
+          <p class="muted">Slots redondeados a :00 o :30. Sin choques con tu calendario.</p>
+        </div>
+        <div class="card">
+          <h3>Documentos organizados</h3>
+          <p class="muted">INE, recetas, estudios y pagos, en carpetas por paciente en Drive.</p>
+        </div>
+        <div class="card">
+          <h3>Emergencias con criterio</h3>
+          <p class="muted">Lenguaje formal o coloquial; mensaje interno al médico, sin alarmar al paciente.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Planes</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Básico</h3>
+          <p class="muted">Ideal para consultorios con agenda ligera.</p>
+          <ul>
+            <li>WhatsApp + Agenda</li>
+            <li>Drive & Sheets</li>
+            <li>Soporte por email</li>
+          </ul>
+          <a class="btn" href="#contacto">Solicitar demo</a>
+        </div>
+        <div class="card">
+          <h3>Profesional</h3>
+          <p class="muted">Para volumen medio–alto y métricas.</p>
+          <ul>
+            <li>Todo del Básico</li>
+            <li>Reportes mensuales</li>
+            <li>Plantillas personalizadas</li>
+          </ul>
+          <a class="btn" href="#contacto">Solicitar demo</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section faq">
+      <h2>FAQ</h2>
+      <details>
+        <summary>¿Necesito cambiar mi número de WhatsApp?</summary>
+        <p class="muted">No necesariamente. Podemos usar un número nuevo (Twilio) o migrar tu número actual a la API oficial. Te guiamos en ambas.</p>
+      </details>
+      <details>
+        <summary>¿Se integra con Google Calendar y Drive?</summary>
+        <p class="muted">Sí. Las citas se crean con nombre y motivo; los documentos se guardan por paciente.</p>
+      </details>
+      <details>
+        <summary>¿Cómo maneja las emergencias?</summary>
+        <p class="muted">La IA detecta lenguaje de urgencia, consuela al paciente y envía un aviso interno al médico con el mensaje original.</p>
+      </details>
+      <details>
+        <summary>¿Cuánto cuesta?</summary>
+        <p class="muted">Depende del volumen de mensajes. Tenemos un plan base mensual y costo variable por conversación de WhatsApp.</p>
+      </details>
+    </section>
+
+    <section id="contacto" class="section">
+      <h2>Contactar</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>WhatsApp</h3>
+          <p class="muted">Escríbenos para una demo.</p>
+          <a class="btn" href="https://wa.me/5214420000000" target="_blank" rel="noopener">Abrir WhatsApp</a>
+        </div>
+        <div class="card">
+          <h3>Email</h3>
+          <p class="muted">Te enviamos una propuesta en 24h.</p>
+          <a class="btn secondary" href="mailto:ventas@assistia.mx">ventas@assistia.mx</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="section">
+      <div class="muted">© <span id="y"></span> assistIA — Hecho con cariño en Qro.</div>
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
